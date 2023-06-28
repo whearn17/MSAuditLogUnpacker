@@ -9,7 +9,7 @@ def expand_json(data, json_cols):
         data[json_col] = data[json_col].apply(lambda x: json.loads(x) if x is not None else {})
         # Normalize the dictionaries into dataframes and join them with the original dataframe
         # Specify suffixes to differentiate between overlapping columns
-        data = data.join(pd.json_normalize(data[json_col]), lsuffix="AuditData.")
+        data = data.join(pd.json_normalize(data[json_col]), rsuffix=".AuditData")
         # Drop the original json columns
         data = data.drop(columns=json_col)
     return data
